@@ -1,3 +1,11 @@
+// ---- One-time cache reset: unregister any old service workers ----
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.getRegistrations?.().then(rs => {
+    rs.forEach(r => r.unregister());
+  });
+  // also clear any old caches (best effort)
+  caches?.keys?.().then(keys => keys.forEach(k => caches.delete(k)));
+}
 // ======================
 // S.T.A.R.L.I.G.H.T. Timer System
 // Name Memory + Voice AI + Presets
